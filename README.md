@@ -18,10 +18,15 @@ Is a very single PHP Shell.
 Features:
 
 Command history (using arrow keys <code>↑</code> <code>↓</code>)
+
 Auto-completion of command and file names (using <code>Tab</code> key)
+
 Navigate on the remote file-system (using <code>cd</code> command)
+
 Upload a file to the server (using <code>upload <destination_file_name></code> command)
+    
 Download a file from the server (using <code>download <file_name></code> command)
+    
 Disconnect from PHP Shell (using <code>logout</code> command)
 
 Have a Nice Day & Happy Hacking ;)
