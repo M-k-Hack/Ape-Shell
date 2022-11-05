@@ -1,26 +1,17 @@
 # MonkeyShell
-MonkeyShell is a PHP Shell Based On NotFoundShell
+MonkeyShell is a PHP Shell Based On NotFoundShell/P0wnyShell
 
-Love the idea of a password on a p0wnyShell, just want to create my own login interface
+Love the idea of a password on a P0wnyShell, just want to create my own login interface. This is a simple PHP shell with a login interface.
+The NotFoundShell with not found page is a good idea, but not useful in CTFs.
+
+My default password atm is monkey, but you can change at the top of the monkeyshell.php file. I changed hash functions to sha256.
 
 
-## Original Readme (to be deleted)
+## Demo
+<img src="https://i.ibb.co/By21Wc9/monkeyshell.gif" alt="monkeyshell" border="0">
 
-<img src='https://github.com/sourcecode347/NotFoundShell/blob/main/nfshell2.png' style='width:80%;height:auto;'/>
 
-NotFoundShell has a hidden input password at right bottom of page
-
-The default password is :
-
-    notfoundshell 
-
-<img src='https://github.com/sourcecode347/NotFoundShell/blob/main/nfshell3.png' style='width:80%;height:auto;'/>
-
-NotFoundShell is based on <a href='https://github.com/flozz/p0wny-shell'>p0wny-shell by flozz</a>.
-
-Is a very single PHP Shell.
-
-Features:
+Features are the same as NotFoundShell/P0wnyShell (Big thanks to the creators of those shells) :
 
 Command history (using arrow keys <code>↑</code> <code>↓</code>)
 

